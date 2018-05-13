@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Mapper.FeedBackMapper">
+    <insert id="receive" parameterType="Model.FeedBack">
+        insert into userfeedback values(#{fid},#{uid},#{name},#{email},#{message},#{feedbackmessage},#{time},#{state})
+    </insert>
+    <select id="getFeedbackByFid" resultType="Model.FeedBack">
+        select fid,uid,name,email,cast(message as char)message,cast(feedbackmessage as char)feedbackmessage,time,state
+        from userfeedback where fid=#{VALUE }
+    </select>
+    <update id="FeedbackUser">
+        update userfeedback set feedbackmessage=#{feedbackmessage} where fid=#{fid}
+    </update>
+    <update id="changeFeedbackstate">
+        update userfeedback set state=#{state} where fid=#{fid}
+    </update>
+
+
+
+</mapper>

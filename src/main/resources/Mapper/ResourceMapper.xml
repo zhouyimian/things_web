@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Mapper.ResourceMapper">
+    <insert id="uploadresource" parameterType="Model.Resource">
+        insert into resource values(#{rid},#{cid},#{uid},#{state},#{resource_title},#{resource_article},#{url},#{publish_time},#{update_time})
+    </insert>
+    <select id="newestResource" resultType="Model.Resource">
+        select * from resource where state=1 order by update_time desc limit 10
+    </select>
+    <select id="findResourceByRid" parameterType="java.lang.String" resultType="Model.Resource">
+        select rid,cid,uid,state,resource_title,cast(resource_article as char)resource_article,url,publish_time,update_time from resource where rid=#{value};
+    </select>
+    <select id="findResourcesByCid" parameterType="java.lang.String" resultType="Model.Resource">
+        select rid,cid,uid,state,resource_title,cast(resource_article as char)resource_article,url,publish_time,update_time from resource where cid=#{value};
+    </select>
+    <select id="todayResource" parameterType="java.lang.String" resultType="Model.Resource">
+        select rid,cid,uid,state,resource_title,cast(resource_article as char)resource_article,url,publish_time,update_time
+        from resource where publish_time >= #{value} ORDER BY update_time desc limit 10
+    </select>
+    <update id="changeResourceState">
+        UPDATE resource SET state=#{state} WHERE rid=#{rid}
+    </update>
+    <select id="gettotalResource" resultType="int">
+        select count(*) from resource
+    </select>
+    <delete id="deleteResourcesByRid" parameterType="java.lang.String">
+        delete from resource where rid=#{value}
+    </delete>
+    <update id="updateResource" parameterType="Model.Resource">
+        update resource set cid=#{cid},resource_title=#{resource_title},resource_article=#{resource_article},url=#{url},update_time=#{update_time} where rid=#{rid}
+    </update>
+
+</mapper>

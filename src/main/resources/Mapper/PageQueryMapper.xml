@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Mapper.PageQueryMapper">
+    <select id="getArticleTotal" resultType="int">
+        select count(*) from article;
+    </select>
+    <select id="getResourceTotal" resultType="int">
+        select count(*) from resource;
+    </select>
+    <select id="getUserTotal" resultType="int">
+        select count(*) from user;
+    </select>
+    <select id="getAdminerTotal" resultType="int">
+        select count(*) from adminers;
+    </select>
+    <select id="getCategoryTotal" resultType="int">
+        select count(*) from category;
+    </select>
+    <select id="getArticleTotalByState" parameterType="int" resultType="int">
+        select count(*) from article where state=#{VALUE };
+    </select>
+    <select id="getResouceTotalByState" parameterType="int" resultType="int">
+        select count(*) from resource where state=#{VALUE };
+    </select>
+    <select id="getFeedbackTotal" resultType="int">
+        select count(*) from userfeedback
+    </select>
+    <select id="getFeedbackTotalByState" parameterType="int" resultType="int">
+        select count(*) from userfeedback where state=#{VALUE }
+    </select>
+    <select id="getArticleTotalByUid" parameterType="java.lang.String" resultType="int">
+        select count(*) from article where uid=#{VALUE }
+    </select>
+    <select id="getResourceTotalByUid" resultType="int">
+        select count(*) from resource where uid=#{VALUE };
+    </select>
+    <select id="getArticleList" parameterType="int" resultType="Model.Article">
+        select aid,uid,cid,state,title,cast(content as char)content,great_num,publish_time,update_time
+        from article ORDER BY update_time desc limit #{value},5
+    </select>
+    <select id="getResourceList" parameterType="int" resultType="Model.Resource">
+        select rid,cid,uid,state,resource_title,cast(resource_article as char)resource_article,url,publish_time,update_time
+        from resource ORDER BY update_time desc limit #{value},5
+    </select>
+    <select id="getUserList" parameterType="int" resultType="Model.User">
+        select uid,username,password,email,state from user limit #{value},5
+    </select>
+    <select id="getAdminerList" parameterType="int" resultType="Model.Admin.Adminer">
+        select adminid,adminname,adminpassword,adminemail
+        from adminers limit #{value},5
+    </select>
+    <select id="getCategoryList" parameterType="int" resultType="Model.Category">
+        select cid,cname from category limit #{value},5
+    </select>
+    <select id="getArticleListByState" resultType="Model.Article">
+        select aid,uid,cid,state,title,cast(content as char)content,great_num,publish_time,update_time
+        from article where state=#{state} ORDER BY update_time desc limit #{page},5
+    </select>
+    <select id="getResourceListByState" resultType="Model.Resource">
+        select rid,cid,uid,state,resource_title,cast(resource_article as char)resource_article,url,publish_time,update_time
+        from resource where state=#{state} ORDER BY update_time desc limit #{page},5
+    </select>
+    <select id="getFeedbackList" parameterType="int" resultType="Model.FeedBack">
+        select fid,uid,name,email,cast(message as char)message,cast(feedbackmessage as char)feedbackmessage,time,state
+        from userfeedback ORDER BY time desc limit #{VALUE },5
+    </select>
+
+    <select id="getFeedbackListByState" resultType="Model.FeedBack">
+        select fid,uid,name,email,cast(message as char)message,cast(feedbackmessage as char)feedbackmessage,time,state
+        from userfeedback where state=#{state} ORDER BY time desc limit #{page },5
+    </select>
+    <select id="getArticleListByUid" resultType="Model.Article">
+        select aid,uid,cid,state,title,cast(content as char)content,great_num,publish_time,update_time
+        from article where uid=#{uid} and state=1 ORDER BY update_time desc limit #{page },5
+    </select>
+    <select id="getResourceListByUid" resultType="Model.Resource">
+        select rid,cid,uid,state,resource_title,cast(resource_article as char)resource_article,url,publish_time,update_time
+        from resource where uid=#{uid} and state=1 ORDER BY update_time desc limit #{page},5
+    </select>
+</mapper>

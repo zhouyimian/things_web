@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Mapper.UserMapper">
+
+    <select id="login" parameterType="Model.User" resultType="Model.User">
+        select * FROM user where username=#{username} and password=#{password}
+    </select>
+
+    <select id="findUserByUsername" parameterType="java.lang.String" resultType="int">
+        select count(*) FROM user where username=#{VALUE}
+    </select>
+
+    <select id="findUserByEmail" parameterType="java.lang.String" resultType="int">
+        select count(*) FROM user where email=#{VALUE}
+    </select>
+
+    <select id="gettotalUser" resultType="int">
+        select count(*) FROM user
+    </select>
+
+    <insert id="regist" parameterType="Model.User">
+        INSERT into user values(#{uid},#{username},#{password},#{email},#{state})
+    </insert>
+
+
+</mapper>

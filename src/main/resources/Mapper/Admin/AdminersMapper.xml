@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Mapper.Admin.AdminersMapper">
+
+    <select id="login" parameterType="Model.Admin.Adminer" resultType="Model.Admin.Adminer">
+        select * FROM adminers where adminname=#{adminname} and adminpassword=#{adminpassword}
+    </select>
+
+    <insert id="regist" parameterType="Model.Admin.Adminer">
+        INSERT into adminers values(#{adminid},#{adminname},#{adminpassword},#{adminemail})
+    </insert>
+
+
+</mapper>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Mapper.CategoryMapper">
+    <select id="loadCategorys" resultType="Model.Category">
+        select * from category
+    </select>
+
+    <select id="findcategoryByname" resultType="int" parameterType="java.lang.String">
+        select count(*) from category where cname=#{value}
+    </select>
+
+    <select id="findcategoryBycid" resultType="Model.Category" parameterType="java.lang.String">
+        select * from category where cid=#{value}
+    </select>
+    <insert id="addcategory" parameterType="Model.Category">
+        insert into category values(#{cid},#{cname})
+    </insert>
+    <delete id="deletecategorybycid" parameterType="java.lang.String">
+        delete from category where cid=#{VALUE}
+    </delete>
+    <update id="altercategoryname" parameterType="Model.Category">
+        update category set cname=#{cname} where cid=#{cid}
+    </update>
+
+</mapper>
